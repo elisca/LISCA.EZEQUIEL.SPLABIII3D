@@ -195,14 +195,14 @@ function filtrarPorTransaccion(array,transaccion){
     mostrarDatos(arrayFiltrado);
 
 
-    if(lstFiltroTr.value!="Todos"){        
+    if(lstFiltroTr.value!="Todos")        
         txtPromedio.value=promedioPrecios(arrayFiltrado);
-        txtPrecioMax.value=buscarPrecioMaximo(arrayFiltrado);
-        txtPrecioMin.value=buscarPrecioMinimo(arrayFiltrado);
-        txtPromPot.value=calcularPotenciaPromedio(arrayFiltrado);
-    }
-    else
+    else        
         txtPromedio.value="N/A";
+
+    txtPrecioMax.value=buscarPrecioMaximo(arrayFiltrado);
+    txtPrecioMin.value=buscarPrecioMinimo(arrayFiltrado);
+    txtPromPot.value=calcularPotenciaPromedio(arrayFiltrado);
 }
 
 function compararTrVenta(anuncio){
@@ -399,7 +399,7 @@ function buscarPrecioMinimo(anuncios){
 }
 
 function calcularPotenciaPromedio(anuncios){
-    let listaPotencia=listaAnuncios.map((e)=>e.potencia);
+    let listaPotencia=anuncios.map((e)=>e.potencia);
 
     let promPotencia=listaPotencia.reduce((prev,act)=>parseInt(prev)+parseInt(act),0);
     promPotencia/=listaPotencia.length;
