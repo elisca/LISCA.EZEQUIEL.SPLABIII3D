@@ -1,0 +1,14 @@
+{
+  "anuncios": [
+    {
+      "id": 2,
+      "titulo": "Venta Lamborghini",
+      "transaccion": "Venta",
+      "descripcion": "Amarillo",
+      "precio": "85000",
+      "puertas": "3",
+      "kilometraje": "12052",
+      "potencia": "240"
+    }
+  ]
+}
