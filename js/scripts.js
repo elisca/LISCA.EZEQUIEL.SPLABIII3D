@@ -4,9 +4,6 @@ import Anuncio_Auto from "./anuncio.js";
 
 let listaAnuncios = [];
 
-//Boton de pruebas
-const btnPruebas=document.getElementById('btnPruebas');
-
 //Dirección a pegar en el servidor
 const URL_DATA="http://localhost:3000/anuncios/";
 
@@ -48,12 +45,6 @@ function inicializarManejadores(){
     lstFiltroTr.value="Todos";
     getFetch();
 }
-
-btnPruebas.addEventListener('click',(e)=>{
-            //Traer LS columnas
-            let columnas = JSON.parse(localStorage.getItem('configColsTabla')) || [true,true,true,true,true,true,true];
-            filtrarColumnas(...columnas);
-});
 
 btnGuardar.addEventListener('click', (e)=>{
     e.preventDefault();
