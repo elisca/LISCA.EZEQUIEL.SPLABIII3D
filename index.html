@@ -110,9 +110,9 @@
                         <!-- Caracteristicas -->
                         <div class="container divAnuncioCampo">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm align-self-center">
                                     <!-- Filtro por Transacción -->
-                                    <label>FILTRAR TRANSACCIÓN</label>
+                                    <label>TRANSACCIÓN</label>
                                     <br>
                                     <select class="campoDatos" name="filtroTr" id="lstFiltroTr">
                                         <option value="Todos">Todos</option>
@@ -123,11 +123,35 @@
                                     <br>
                                     <br>
                                 </div>                                
-                                <div class="col-sm-6">
+                                <div class="col-sm align-self-center">
                                     <!-- Promedio de Precios -->
                                     <label>PROMEDIO</label>
                                     <br>
                                     <input class="campoDatos" type="text" id="txtPromedio" placeholder="Promedio" readonly>
+                                    <br>
+                                    <br>
+                                </div>                                
+                                <div class="col-sm align-self-center">
+                                    <!-- Precio Máximo -->
+                                    <label>PRECIO +</label>
+                                    <br>
+                                    <input class="campoDatos" type="text" id="txtPrecioMax" placeholder="Precio máximo" readonly>
+                                    <br>
+                                    <br>
+                                </div>                                
+                                <div class="col-sm align-self-center">
+                                    <!-- Precio Mínimo -->
+                                    <label>PRECIO -</label>
+                                    <br>
+                                    <input class="campoDatos" type="text" id="txtPrecioMin" placeholder="Precio mínimo" readonly>
+                                    <br>
+                                    <br>
+                                </div>                                
+                                <div class="col-sm align-self-center">
+                                    <!-- Promedio de Potencia -->
+                                    <label>PROM. POT.</label>
+                                    <br>
+                                    <input class="campoDatos" type="text" id="txtPromPot" placeholder="Potencia promedio" readonly>
                                     <br>
                                     <br>
                                 </div>                                
@@ -209,6 +233,13 @@
                 </form>
                 <br>
             </section>
+
+            <!-- Boton de Pruebas -->
+            <div class="col-md-3">                                    
+                <!-- Restablecer -->
+                <button class="bGuardar btn btn-primary" id="btnPruebas" value="Probar"><img src="./img/img-restablecer.png" alt="imagen circular" class="imgCaracteristicasBotones">Probar</button>
+            </div>
+
 
             <section class="datos">
                 <div class="container tablaDatos justify-content-center" id="dTablaDatos">

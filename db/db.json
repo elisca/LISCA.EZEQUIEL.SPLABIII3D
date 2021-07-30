@@ -8,7 +8,27 @@
       "precio": "85000",
       "puertas": "3",
       "kilometraje": "12052",
+      "potencia": "120"
+    },
+    {
+      "id": 3,
+      "titulo": "Venta Lamborghini",
+      "transaccion": "Alquiler",
+      "descripcion": "Amarillo",
+      "precio": "35000",
+      "puertas": "3",
+      "kilometraje": "12052",
       "potencia": "240"
+    },
+    {
+      "id": 4,
+      "titulo": "Venta Lamborghini",
+      "transaccion": "Venta",
+      "descripcion": "Amarillo",
+      "precio": "30000",
+      "puertas": "3",
+      "kilometraje": "12052",
+      "potencia": "120"
     }
   ]
 }

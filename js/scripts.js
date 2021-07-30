@@ -4,6 +4,9 @@ import Anuncio_Auto from "./anuncio.js";
 
 let listaAnuncios = [];
 
+//Boton de pruebas
+const btnPruebas=document.getElementById('btnPruebas');
+
 //Dirección a pegar en el servidor
 const URL_DATA="http://localhost:3000/anuncios/";
 
@@ -22,6 +25,9 @@ const btnRestablecer = document.getElementById('btnRestablecer');
 
 const lstFiltroTr=document.getElementById('lstFiltroTr');
 const txtPromedio=document.getElementById('txtPromedio');
+const txtPrecioMax=document.getElementById('txtPrecioMax');
+const txtPrecioMin=document.getElementById('txtPrecioMin');
+const txtPromPot=document.getElementById('txtPromPot');
 
 const divTablaDatos = document.getElementById('dTablaDatos');
 
@@ -42,6 +48,12 @@ function inicializarManejadores(){
     lstFiltroTr.value="Todos";
     getFetch();
 }
+
+btnPruebas.addEventListener('click',(e)=>{
+            //Traer LS columnas
+            let columnas = JSON.parse(localStorage.getItem('configColsTabla')) || [true,true,true,true,true,true,true];
+            filtrarColumnas(...columnas);
+});
 
 btnGuardar.addEventListener('click', (e)=>{
     e.preventDefault();
@@ -133,8 +145,11 @@ function mostrarDatos(arrayDatos){
 
     setTimeout(()=>{
         divTablaDatos.removeChild(divTablaDatos.firstChild);
-        if(arrayDatos.length>0)            
+        if(arrayDatos.length>0){
             divTablaDatos.appendChild(crearTabla(arrayDatos));
+            let columnas = JSON.parse(localStorage.getItem('configColsTabla')) || [true,true,true,true,true,true,true];
+            filtrarColumnas(...columnas);
+        }            
         else
             divTablaDatos.innerHTML = "<p>Sin datos para mostrar.</p>";
 
@@ -188,8 +203,13 @@ function filtrarPorTransaccion(array,transaccion){
 
     mostrarDatos(arrayFiltrado);
 
-    if(lstFiltroTr.value!="Todos")
+
+    if(lstFiltroTr.value!="Todos"){        
         txtPromedio.value=promedioPrecios(arrayFiltrado);
+        txtPrecioMax.value=buscarPrecioMaximo(arrayFiltrado);
+        txtPrecioMin.value=buscarPrecioMinimo(arrayFiltrado);
+        txtPromPot.value=calcularPotenciaPromedio(arrayFiltrado);
+    }
     else
         txtPromedio.value="N/A";
 }
@@ -218,6 +238,19 @@ function promedioPrecios(array){
 }
 
 function filtrarColumnas(titulo,transaccion,descripcion,precio,puertas,kilometraje,potencia){
+    //Enviar LS
+    let columnas=[titulo,transaccion,descripcion,precio,puertas,kilometraje,potencia];
+    chkColTitulo.checked=titulo;
+    chkColTransaccion.checked=transaccion;
+    chkColDescripcion.checked=descripcion;
+    chkColPrecio.checked=precio;
+    chkColPuertas.checked=puertas;
+    chkColKMs.checked=kilometraje;
+    chkColPotencia.checked=potencia;
+
+    localStorage.clear();
+    localStorage.setItem('configColsTabla', JSON.stringify(columnas));
+
     let celdas=divTablaDatos.querySelectorAll('th,td');
     celdas.forEach(c => {
         if(c.dataset.campo=="titulo"){
@@ -339,4 +372,48 @@ function deleteFetch(anuncioAuto){
         .finally(()=>{
             console.log("Proceso terminado.");
         });//Avisamos final del proceso
+}
+
+function buscarPrecioMaximo(anuncios){
+    let pMax=anuncios[0].precio;
+
+    anuncios.map((e)=>{
+        if(e.Precio>pMax)
+            pMax=e.Precio;
+    });
+
+    console.info("Precio máximo: $" + pMax);
+    return pMax;
+}
+
+function buscarPrecioMinimo(anuncios){
+    let anunciosSelec=anuncios.filter((e)=>{
+        return e.precio>0;
+    });
+
+    let pMin=0,primerValor=true;
+
+    anunciosSelec.forEach((e)=>{
+        if(primerValor){
+            pMin=e.precio;
+            primerValor=false;
+        }
+        else if(e.precio<pMin)
+            pMin=e.precio;
+        }
+    );
+
+    console.info("Precio mínimo: $" + pMin);
+    return pMin;
+}
+
+function calcularPotenciaPromedio(anuncios){
+    let listaPotencia=listaAnuncios.map((e)=>e.potencia);
+
+    let promPotencia=listaPotencia.reduce((prev,act)=>parseInt(prev)+parseInt(act),0);
+    promPotencia/=listaPotencia.length;
+
+    console.info("Promedio de potencia: " + promPotencia);
+
+    return promPotencia;
 }
